@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/stemmer.js"></script>
+	<script type="text/javascript" src="assets/main.js"></script>
+	<style type="text/css">
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		body, textarea {
+			font-size: 14px;
+			font-family: "Helvetica Neue", Helvetica, sans-serif;
+			line-height: 1.5em
+		}
+		#wrapper {
+			width: 100vw;
+			height: 100vh;
+			padding: 20px;
+		}
+		.column {
+			position: absolute;
+			top: 0px;
+			width: 50%;
+			height: 100%;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		.column:nth-child(1) { left: 0%; }
+		.column:nth-child(2) { left: 50%; }
+		#input {
+			background: #f7f7f7;
+		}
+		#input, #output {
+			margin: 0px;
+			padding: 10px;
+			border: 1px solid #eee;
+			box-sizing: border-box;
+			width: 100%;
+			height: 100%;
+			white-space: pre-wrap;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="column">
+			<textarea id="input"></textarea>
+		</div>
+		<div class="column">
+			<div id="output"></div>
+		</div>
+	</div>
+</body>
+</html>
