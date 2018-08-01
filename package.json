@@ -1,0 +1,13 @@
+{
+  "name": "simpleplease",
+  "version": "0.1",
+  "description": "checks which words are less common",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Kreil",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
