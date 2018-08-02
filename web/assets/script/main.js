@@ -6,7 +6,7 @@ $(function () {
 		init($(this).val());
 	})
 	$('#input').on('change blur keyup', analyse);
-	$('window').on('resize', resize);
+	$(window).resize(resize);
 
 	switch ((navigator.language || 'en').toLowerCase().slice(0,2)) {
 		case 'de': init('german'); break;
