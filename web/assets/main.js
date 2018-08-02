@@ -35,6 +35,8 @@ $(function () {
 			value = Math.log(value);
 			value = 1-(value-maxValue)/(optValue-maxValue);
 
+			if (value <= 0) return chunk;
+
 			color = getColor(value);
 
 			return '<span style="background:#'+color+'">'+chunk+'</span>';
