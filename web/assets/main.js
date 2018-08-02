@@ -43,6 +43,7 @@ $(function () {
 
 		});
 		$('#output').html(html);
+		$('#input').css('height', $('#output').outerHeight());
 	}
 })
 
