@@ -1,39 +1,59 @@
 
 $(function () {
-	var language = 'german';
-	stemmer = stemmer[language];
+	var library = {}, dict;
 
-	var dict = {}, wordCount, maxValue, optValue = Math.log(3e3);
+	init('german');
 
-	$.get('assets/'+language+'.txt', function (data) {
-		data = data.split(',');
-		data.forEach(function (word, index) {
-			dict[word] = index+1;
-		});
-		wordCount = data.length;
-		maxValue = Math.log(wordCount);
+	$('#input').on('change blur keyup', analyse);
+	$('window').on('resize', resize);
+	analyse();
 
-		$('#input').on('change blur keyup', function (e) {
-			analyse($('#input').val());
-		})
+	function init(lang) {
+		if (!library[lang]) {
+			dict = (library[lang] = {});
 
-		$('#input').text(demotext[language]);
-		analyse($('#input').val());
-	})
+			dict.stemmer = stemmer[lang];
+			dict.demotext = demotext[lang];
 
-	function analyse(text) {
-		text = text.replace(/[<>]/g, '');
-		//console.log(text.replace(/nn/g, function (chunk) { return 'mm' }));
+			$.get('assets/'+lang+'.txt', function (data) {
+				var lookup = {};
+				data = data.split(',');
+				data.forEach(function (word, index) {
+					lookup[word] = index+1;
+				});
+				dict.lookup = lookup;
+				dict.wordCount = data.length;
+				dict.maxValue = Math.log(dict.wordCount);
+
+				switch (lang) {
+					case 'english': dict.optValue = Math.log(1e3); break;
+					case 'german':  dict.optValue = Math.log(3e3); break;
+				}
+
+				$('#input').text(dict.demotext);
+				analyse();
+			})
+		} else {
+			$('#input').text(dict.demotext);
+			analyse();
+		}
+	}
+
+	function analyse() {
+		if (!dict) return;
+		
+		text = $('#input').val();
+
 		var html = text.replace(/[a-zäöüß]+/gi, function (chunk) {
-			//console.log(chunk);
+			
 			if (chunk.length <= 1) return chunk;
 
 			var word = chunk.toLowerCase();
-			word = stemmer(word);
+			word = dict.stemmer(word);
 
-			var value = dict[word] || 1e10;
+			var value = dict.lookup[word] || 1e10;
 			value = Math.log(value);
-			value = 1-(value-maxValue)/(optValue-maxValue);
+			value = 1-(value-dict.maxValue)/(dict.optValue-dict.maxValue);
 
 			if (value <= 0) return chunk;
 
@@ -43,6 +63,10 @@ $(function () {
 
 		});
 		$('#output').html(html);
+		resize();
+	}
+
+	function resize () {
 		$('#input').css('height', $('#output').outerHeight());
 	}
 })
