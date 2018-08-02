@@ -9,48 +9,57 @@
 		body {
 			margin: 0;
 			padding: 0;
-		}
-		body, textarea {
-			font-size: 14px;
-			font-family: "Helvetica Neue", Helvetica, sans-serif;
-			line-height: 1.5em
+			background: #f7f7f7;
 		}
 		#wrapper {
-			width: 100vw;
-			height: 100vh;
+			position: relative;
+			margin: auto;
+			width: 80vw;
 			padding: 20px;
 		}
 		.column {
 			position: absolute;
 			top: 0px;
-			width: 50%;
-			height: 100%;
-			padding: 20px;
+			left: 0px;
+			right: 0px;
+			padding: 10px;
 			box-sizing: border-box;
-		}
-		.column:nth-child(1) { left: 0%; }
-		.column:nth-child(2) { left: 50%; }
-		#input {
-			background: #f7f7f7;
 		}
 		#input, #output {
-			margin: 0px;
-			padding: 10px;
-			border: 1px solid #eee;
 			box-sizing: border-box;
-			width: 100%;
+			font-family: monospace;
+			font-size: 14px;
+			font-weight: normal;
+			letter-spacing: normal;
 			height: 100%;
+			line-height: 1.6em;
+			margin: 0px;
+			overflow: hidden;
+			padding: 50px;
 			white-space: pre-wrap;
+			width: 100%;
+			outline: 0px !important;
+			border: 1px solid #eee;
+		}
+		#input {
+			-webkit-appearance:none;
+			background: transparent;
+			resize: none;
+			border-color: transparent;
+		}
+		#output {
+			background: #fff;
+			color: transparent;
 		}
 	</style>
 </head>
 <body>
 	<div id="wrapper">
 		<div class="column">
-			<textarea id="input"></textarea>
+			<div id="output"></div>
 		</div>
 		<div class="column">
-			<div id="output"></div>
+			<textarea id="input"></textarea>
 		</div>
 	</div>
 </body>
