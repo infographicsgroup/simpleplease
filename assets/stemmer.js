@@ -287,4 +287,8 @@ var stemmer = {
 	german: stemmer_de,
 }
 
-if (module && module.exports) module.exports = stemmer;
+try {
+	if (module && module.exports) module.exports = stemmer;
+} catch (e) {
+	
+}
