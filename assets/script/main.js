@@ -81,7 +81,9 @@ $(function () {
 	}
 
 	function resize () {
-		$('#input').css('height', $('#output').outerHeight());
+		var height = $('#output').outerHeight();
+		$('#input').css('height', height);
+		$('#wrapper').css('height', height+40);
 	}
 })
 

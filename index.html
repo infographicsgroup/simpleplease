@@ -17,6 +17,10 @@
 			margin: 0;
 			padding: 0;
 			background: #f7f7f7;
+			margin-bottom: 100px;
+		}
+		#lead {
+			margin-top: 50px;
 		}
 		#input, button {
 			outline: none !important;
@@ -65,6 +69,16 @@
 			background: #fff;
 			color: transparent;
 		}
+		@media (max-width: 767.98px) {
+			#wrapper {
+				width: 100%;
+			}
+		}
+		@media (max-width: 575.98px) {
+			#input, #output {
+				padding: 10px;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -74,7 +88,7 @@
 				<button type="button" class="btn btn-outline-dark" name="language" value="english" autocomplete="off">english</button>
 				<button type="button" class="btn btn-outline-dark" name="language" value="german"  autocomplete="off">german</button>
 			</div>
-			<p class="lead" id="lead" style="margin-top: 50px"></p>
+			<p class="lead" id="lead"></p>
 		</div>
 		<div id="wrapper">
 			<div class="column shadow bg-white rounded">
