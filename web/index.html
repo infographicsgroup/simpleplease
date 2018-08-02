@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
 	<title>simple please</title>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
+
 	<script type="text/javascript" src="assets/jquery/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/script/stemmer.js"></script>
 	<script type="text/javascript" src="assets/script/main.js"></script>
-	<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
+
 	<style type="text/css">
 		body {
 			margin: 0;
 			padding: 0;
 			background: #f7f7f7;
 		}
+		#input, button {
+			outline: none !important;
+			box-shadow: none !important;
+		}
+		#menu {
+			text-align: center;
+			padding: 50px 0 0;
+		}
 		#wrapper {
 			position: relative;
 			margin: auto;
-			width: 80vw;
+			width: 80%;
 			padding: 20px;
 		}
 		.column {
@@ -41,8 +53,7 @@
 			padding: 50px;
 			white-space: pre-wrap;
 			width: 100%;
-			outline: 0px !important;
-			border: 1px solid #eee;
+			border: none;
 		}
 		#input {
 			-webkit-appearance:none;
@@ -57,13 +68,21 @@
 	</style>
 </head>
 <body>
-	<div id="menu"></div>
-	<div id="wrapper">
-		<div class="column">
-			<div id="output"></div>
+	<div class="container">
+		<div id="menu">
+			<div class="btn-group">
+				<button type="button" class="btn btn-outline-dark" name="language" value="english" autocomplete="off">english</button>
+				<button type="button" class="btn btn-outline-dark" name="language" value="german"  autocomplete="off">german</button>
+			</div>
+			<p class="lead" id="lead" style="margin-top: 50px"></p>
 		</div>
-		<div class="column">
-			<textarea id="input"></textarea>
+		<div id="wrapper">
+			<div class="column shadow bg-white rounded">
+				<div id="output"></div>
+			</div>
+			<div class="column">
+				<textarea id="input"></textarea>
+			</div>
 		</div>
 	</div>
 </body>

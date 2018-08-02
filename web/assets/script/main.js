@@ -2,20 +2,31 @@
 $(function () {
 	var library = {}, dict;
 
-	init('german');
-
+	$('button[name=language]').click(function () {
+		init($(this).val());
+	})
 	$('#input').on('change blur keyup', analyse);
 	$('window').on('resize', resize);
-	analyse();
+
+	switch ((navigator.language || 'en').toLowerCase().slice(0,2)) {
+		case 'de': init('german'); break;
+		default: init('english');
+	}
 
 	function init(lang) {
+		$('#menu button').each(function (index, button) {
+			button = $(button);
+			button.toggleClass('active', button.val() === lang)
+		})
+		$('#lead').text(lead[lang]);
+
 		if (!library[lang]) {
 			dict = (library[lang] = {});
 
 			dict.stemmer = stemmer[lang];
 			dict.demotext = demotext[lang];
 
-			$.get('assets/'+lang+'.txt', function (data) {
+			$.get('assets/data/'+lang+'.txt', function (data) {
 				var lookup = {};
 				data = data.split(',');
 				data.forEach(function (word, index) {
@@ -29,11 +40,14 @@ $(function () {
 					case 'english': dict.optValue = Math.log(1e3); break;
 					case 'german':  dict.optValue = Math.log(3e3); break;
 				}
-
-				$('#input').text(dict.demotext);
-				analyse();
+				finish();
 			})
 		} else {
+			dict = library[lang];
+			finish();
+		}
+
+		function finish() {
 			$('#input').text(dict.demotext);
 			analyse();
 		}
@@ -101,3 +115,7 @@ var demotext = {
 	english:'Fruit versus vegetable\nBotanically, a tomato is a fruit, a berry, consisting of the ovary, together with its seeds, of a flowering plant. However, the tomato is considered a "culinary vegetable" because it has a much lower sugar content than culinary fruits; it is typically served as part of a salad or main course of a meal, rather than as a dessert. Tomatoes are not the only food source with this ambiguity; bell peppers, cucumbers, green beans, eggplants, avocados, and squashes of all kinds (such as zucchini and pumpkins) are all botanically fruits, yet cooked as vegetables. This has led to legal dispute in the United States. In 1887, U.S. tariff laws that imposed a duty on vegetables, but not on fruits, caused the tomato\'s status to become a matter of legal importance. The U.S. Supreme Court settled this controversy on May 10, 1893, by declaring that the tomato is a vegetable, based on the popular definition that classifies vegetables by use—they are generally served with dinner and not dessert (Nix v. Hedden (149 U.S. 304)). The holding of this case applies only to the interpretation of the Tariff of 1883, and the court did not purport to reclassify the tomato for botanical or other purposes.',
 }
 
+var lead = {
+	german:'Füge einen beliebigen Text ein. Komplizierte Wörter werden dann hervorgehoben.',
+	english:'Enter or paste any text. Uncommon words will be highlighted.',
+}
