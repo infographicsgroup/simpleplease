@@ -28,7 +28,7 @@ $(function () {
 
 			$.get('assets/data/'+lang+'.txt', function (data) {
 				var lookup = {};
-				data = data.split(',');
+				data = data.split('\n');
 				data.forEach(function (word, index) {
 					lookup[word] = index+1;
 				});
@@ -66,6 +66,7 @@ $(function () {
 			word = dict.stemmer(word);
 
 			var value = dict.lookup[word] || 1e10;
+			
 			value = Math.log(value);
 			value = 1-(value-dict.maxValue)/(dict.optValue-dict.maxValue);
 
