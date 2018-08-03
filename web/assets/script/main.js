@@ -87,7 +87,7 @@ $(function () {
 	}
 })
 
-var gradient = 'ffffff,f4fafe,ebf4fd,e3effa,dde9f7,d6e3f3,d3ddee,d0d6e8,d0cee0,d0c7d8,d3bfce,d7b7c3,dcafb6,e2a5a8,e99a98,f18e86,fa8072'.split(',').map(function (hex) {
+var gradient = 'ffffff,fff9e2,fff2c5,ffecab,ffe595,ffdd7f,ffd56f,ffcc5c,ffc44d,ffbc3e,ffb433,ffaa26,ffa01b,ff9710,ff8c06,ff8301,ff7700'.split(',').map(function (hex) {
 	return [
 		parseInt(hex.slice(0,2),16),
 		parseInt(hex.slice(2,4),16),
