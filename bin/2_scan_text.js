@@ -4,7 +4,7 @@ const fs = require('fs');
 
 var wordLookup = new Map();
 
-var text = fs.readFileSync('text.txt', 'utf8');
+var text = fs.readFileSync('all.txt', 'utf8');
 
 text.match(/[a-zäöüß]+/gi).forEach(word => {
 	if (word.length < 2) return;
@@ -18,6 +18,8 @@ text.match(/[a-zäöüß]+/gi).forEach(word => {
 });
 
 wordLookup = Array.from(wordLookup.entries());
+
+wordLookup = wordLookup.filter(e => e[1] >= 3);
 
 wordLookup.sort((a,b) => b[1] - a[1]);
 
