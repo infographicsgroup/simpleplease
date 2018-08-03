@@ -18,7 +18,10 @@ $(function () {
 			button = $(button);
 			button.toggleClass('active', button.val() === lang)
 		})
-		$('#lead').text(lead[lang]);
+		$('.language').each(function (index, node) {
+			node = $(node);
+			node.toggle(node.hasClass(lang));
+		})
 
 		if (!library[lang]) {
 			dict = (library[lang] = {});
@@ -37,8 +40,8 @@ $(function () {
 				dict.maxValue = Math.log(dict.wordCount);
 
 				switch (lang) {
-					case 'english': dict.optValue = Math.log(1e3); break;
-					case 'german':  dict.optValue = Math.log(3e3); break;
+					case 'english': dict.optValue = Math.log(3e3); break;
+					case 'german':  dict.optValue = Math.log(10e3); break;
 				}
 				finish();
 			})
@@ -114,11 +117,18 @@ function getColor(value) {
 }
 
 var demotext = {
-	german:'Vegetative Merkmale\nDie Tomatenpflanze ist eine krautige, einjährige, zweijährige oder gelegentlich auch ausdauernde Pflanze, die zunächst aufrecht, später aber niederliegend und kriechend wächst. Die einzelnen Äste können dabei bis zu 4 m lang werden. Die Stängel haben an der Basis einen Durchmesser von 10 bis 14 mm, sie sind grün, fein behaart und zur Spitze hin meist filzig behaart. Die Behaarung besteht aus einfachen, einzelligen Trichomen, die bis zu 0,5 mm lang werden, sowie spärlich verteilten meist aus bis zu zehn Zellen bestehenden, mehrzelligen Trichomen mit bis zu 3 mm Länge. Vor allem die längeren Trichome besitzen oft drüsige Spitzen, die der Pflanze einen starken Geruch verleihen.\nDie sympodialen Einheiten besitzen meist drei Laubblätter, die Internodien sind 1 bis 6 cm lang, gelegentlich auch länger. Die Laubblätter sind unterbrochen unpaarig gefiedert, 20 bis 35 cm (selten nur 10 cm oder mehr als 35 cm) lang und 7 bis 10 cm (selten nur 3 cm oder mehr als 10 cm) breit. Sie sind beidseitig spärlich behaart, die Trichome gleichen denen der Stängel. Der Blattstiel ist 1,2 bis 6 cm lang oder gelegentlich auch länger.\nDie Hauptteilblätter stehen in drei oder vier (selten auch fünf) Paaren. Sie sind eiförmig oder elliptisch geformt, die Basis ist schräg und zur Basis des Gesamtblattes hin herablaufend, abgeschnitten oder herzförmig. Die Ränder sind vor allem nahe der Basis gezahnt oder gekerbt, selten sind sie ganzrandig oder tiefgezähnt oder -gelappt. Die Spitze der Teilblätter ist spitz oder zugespitzt. Das oberste Teilblatt ist meist größer als die seitlichen Teilblätter, 3 bis 5 cm lang und 1,5 bis 3 cm breit. Das Stielchen ist 0,5 bis 1,5 cm lang. Die Spitze ist meist spitz zulaufend. Die seitlichen Teilblätter sind 2 bis 4,5 cm lang und 0,8 bis 2,5 cm breit, sie stehen an 0,3 bis 2 cm langen Stielchen.',
-	english:'Fruit versus vegetable\nBotanically, a tomato is a fruit, a berry, consisting of the ovary, together with its seeds, of a flowering plant. However, the tomato is considered a "culinary vegetable" because it has a much lower sugar content than culinary fruits; it is typically served as part of a salad or main course of a meal, rather than as a dessert. Tomatoes are not the only food source with this ambiguity; bell peppers, cucumbers, green beans, eggplants, avocados, and squashes of all kinds (such as zucchini and pumpkins) are all botanically fruits, yet cooked as vegetables. This has led to legal dispute in the United States. In 1887, U.S. tariff laws that imposed a duty on vegetables, but not on fruits, caused the tomato\'s status to become a matter of legal importance. The U.S. Supreme Court settled this controversy on May 10, 1893, by declaring that the tomato is a vegetable, based on the popular definition that classifies vegetables by use—they are generally served with dinner and not dessert (Nix v. Hedden (149 U.S. 304)). The holding of this case applies only to the interpretation of the Tariff of 1883, and the court did not purport to reclassify the tomato for botanical or other purposes.',
-}
-
-var lead = {
-	german:'Füge einen beliebigen Text ein. Komplizierte Wörter werden dann hervorgehoben.',
-	english:'Enter or paste any text. Uncommon words will be highlighted.',
+	german:[
+		'Regen ist die am häufigsten auftretende Form flüssigen Niederschlags aus Wolken.',
+		'Er besteht aus Wasser, das nach Kondensation von Wasserdampf infolge der Schwerkraft auf die Erde fällt.',
+		'Regentropfen binden Staub und Aerosole, die in die Atmosphäre aufgestiegen sind. Diese Bestandteile bestimmen den pH-Wert des Regens.',
+		'Die Regenformen werden nach Entstehung, Dauer, Intensität, Wirkung und geografischem Vorkommen unterschieden. Fester Niederschlag, z. B. Hagel, Graupel oder Schnee, besteht aus gefrorenem Wasser und Kondensationskeimen und tritt auch gemischt mit Regen auf.',
+		'Die Kondensation des Wasserdampfes in der Atmosphäre tritt durch Abkühlung und durch Aerodynamik ein. Zusätzlich bestimmen der Staubgehalt und die Aerosole den Taupunkt abweichend vom Phasendiagramm der theoretischen Thermodynamik.',
+	].join('\n\n'),
+	english:[
+		'Rain is liquid water in the form of droplets that have condensed from atmospheric water vapor and then becomes heavy enough to fall under gravity.',
+		'Rain is a major component of the water cycle and is responsible for depositing most of the fresh water on the Earth. It provides suitable conditions for many types of ecosystems, as well as water for hydroelectric power plants and crop irrigation.',
+		'The major cause of rain production is moisture moving along three-dimensional zones of temperature and moisture contrasts known as weather fronts. If enough moisture and upward motion is present, precipitation falls from convective clouds (those with strong upward vertical motion) such as cumulonimbus (thunder clouds) which can organize into narrow rainbands.',
+		'In mountainous areas, heavy precipitation is possible where upslope flow is maximized within windward sides of the terrain at elevation which forces moist air to condense and fall out as rainfall along the sides of mountains. On the leeward side of mountains, desert climates can exist due to the dry air caused by downslope flow which causes heating and drying of the air mass.',
+		'The movement of the monsoon trough, or intertropical convergence zone, brings rainy seasons to savannah climes.',
+	].join('\n\n'),
 }
