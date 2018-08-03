@@ -18,21 +18,28 @@
 			padding: 0;
 			background: #f7f7f7;
 		}
-		#lead {
+		.lead {
 			margin-top: 50px;
 		}
 		#input, button {
 			outline: none !important;
 			box-shadow: none !important;
 		}
+		#menu, #wrapper {
+			margin: auto;
+			width: 80%;
+			box-sizing: border-box;
+		}
 		#menu {
 			text-align: center;
-			padding: 50px 0 0;
+			padding: 50px 50px 0;
+		}
+		.small {
+			line-height: 1.3em;
+			opacity: 0.5;
 		}
 		#wrapper {
 			position: relative;
-			margin: auto;
-			width: 80%;
 			padding: 20px;
 			margin-bottom: 100px;
 		}
@@ -70,7 +77,7 @@
 			color: transparent;
 		}
 		@media (max-width: 767.98px) {
-			#wrapper {
+			#menu, #wrapper {
 				width: 100%;
 			}
 		}
@@ -88,7 +95,14 @@
 				<button type="button" class="btn btn-outline-dark" name="language" value="english" autocomplete="off">english</button>
 				<button type="button" class="btn btn-outline-dark" name="language" value="german"  autocomplete="off">german</button>
 			</div>
-			<p class="lead" id="lead"></p>
+			<div class="language german">
+				<p class="lead">Füge einen beliebigen Text ein. Komplizierte Wörter werden dann hervorgehoben.</p>
+				<p class="small">Beim Schreiben von Texten ist es oft schwierig, sicherzustellen, dass die Leser alle Fachbegriffe verstehen. Dieses kleine Werkzeug soll dabei helfen. Einfach einen Text reinkopieren, und alle Wörter, die in der deutschen Sprache selten vorkommen, werden farblich hervorgehoben. Für diese Wörter können Sie dann entscheiden, ob sie wirklich schwierig sind und ob Sie sie durch einfachere Synonyme ersetzen wollen.</p>
+			</div>
+			<div class="language english">
+				<p class="lead">Enter or paste any text. Uncommon words will be highlighted.</p>
+				<p class="small">When writing texts, it is often difficult to make sure that the readers understand all technical terms. This little tool might help you. Simply paste a text, and all words that rarely occur in the English language are highlighted. For these words, you can then check whether they are really difficult and whether you want to replace them with more simple synonyms.</p>
+			</div>
 		</div>
 		<div id="wrapper">
 			<div class="column shadow bg-white rounded">
@@ -99,5 +113,8 @@
 			</div>
 		</div>
 	</div>
+	<footer>
+		<p class="small text-center">demotexts are from wikipedia. code is at <a href="https://github.com/infographicsgroup/simpleplease">github</a>. feel free to use, fork, improve, …</p>
+	</footer>
 </body>
 </html>

@@ -6,12 +6,12 @@ const Stemmer = require('../web/assets/script/stemmer.js');
 [
 	{name: 'german', files:[
 		['german_basis.txt', 1],
-		['german_fairytales.txt', 5],
-		['german_magazin.txt', 2],
+		['german_fairytales.txt', 70],
+		['german_magazin.txt', 30],
 	]},
 	{name: 'english', files:[
 		['english_basis.txt', 1],
-		['english_fairytales.txt', 5],
+		['english_fairytales.txt', 100],
 	]},
 ].forEach(task => {
 	var stemmer = Stemmer[task.name];
@@ -42,7 +42,7 @@ const Stemmer = require('../web/assets/script/stemmer.js');
 
 	wordLookup.sort((a,b) => (b[1]-a[1]) || a[0].localeCompare(b[0]));
 
-	wordLookup = wordLookup.slice(0,50000);
+	wordLookup = wordLookup.slice(0,80000);
 
 	wordLookup = wordLookup.map(e => e[0]).join('\n')
 
