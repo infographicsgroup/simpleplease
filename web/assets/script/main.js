@@ -59,7 +59,7 @@ $(function () {
 	function analyse() {
 		if (!dict) return;
 		
-		text = $('#input').val();
+		text = $('#input').text();
 
 		var html = text.replace(/[a-zäöüß]+/gi, function (chunk) {
 			
@@ -85,8 +85,9 @@ $(function () {
 	}
 
 	function resize () {
+		var width = $('#output').outerWidth();
 		var height = $('#output').outerHeight();
-		$('#input').css('height', height);
+		$('#input').css({height:height, width:width});
 		$('#wrapper').css('height', height+40);
 	}
 })
