@@ -52,19 +52,23 @@
 			box-sizing: border-box;
 		}
 		#input, #output {
+			background: transparent;
+			border-radius: 0px;
+			border: none;
 			box-sizing: border-box;
 			font-family: monospace;
 			font-size: 14px;
 			font-weight: normal;
-			letter-spacing: normal;
 			height: 100%;
-			line-height: 1.6em;
+			letter-spacing: normal;
+			line-height: 22px;
 			margin: 0px;
+			outline: none;
 			overflow: hidden;
 			padding: 50px;
 			white-space: pre-wrap;
 			width: 100%;
-			border: none;
+			word-spacing: 0px;
 		}
 		#input {
 			-webkit-appearance:none;
@@ -73,7 +77,6 @@
 			border-color: transparent;
 		}
 		#output {
-			background: #fff;
 			color: transparent;
 		}
 		@media (max-width: 767.98px) {
@@ -109,7 +112,7 @@
 				<div id="output"></div>
 			</div>
 			<div class="column">
-				<textarea id="input"></textarea>
+				<div id="input" contenteditable="true"></div>
 			</div>
 		</div>
 	</div>
