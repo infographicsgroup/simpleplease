@@ -59,7 +59,14 @@ $(function () {
 	function analyse() {
 		if (!dict) return;
 		
-		text = $('#input').text();
+		text = $('#input').val();
+
+		var cleanText = text.replace(/^\s+|\s+$/g, '');
+
+		if (text !== cleanText) {
+			text = cleanText;
+			$('#input').val(text);
+		}
 
 		var html = text.replace(/[a-zäöüß]+/gi, function (chunk) {
 			
@@ -85,9 +92,8 @@ $(function () {
 	}
 
 	function resize () {
-		var width = $('#output').outerWidth();
 		var height = $('#output').outerHeight();
-		$('#input').css({height:height, width:width});
+		$('#input').css('height', height);
 		$('#wrapper').css('height', height+40);
 	}
 })
