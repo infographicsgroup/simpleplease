@@ -9,6 +9,7 @@
 
 	<script type="text/javascript" src="assets/jquery/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/quill/quill.min.js"></script>
 	<script type="text/javascript" src="assets/script/stemmer.js"></script>
 	<script type="text/javascript" src="assets/script/main.js"></script>
 
@@ -21,7 +22,7 @@
 		.lead {
 			margin-top: 50px;
 		}
-		#input, button {
+		button {
 			outline: none !important;
 			box-shadow: none !important;
 		}
@@ -44,39 +45,28 @@
 			margin-bottom: 100px;
 		}
 		.column {
-			position: absolute;
-			top: 0px;
-			left: 0px;
-			right: 0px;
 			padding: 50px;
 			box-sizing: border-box;
 		}
-		#input, #output {
+		#editor {
 			-webkit-appearance:none;
+			background: transparent;
 			border: none;
 			box-sizing: border-box;
 			font-family: monospace;
 			font-size: 14px;
 			font-weight: normal;
-			height: 100%;
 			letter-spacing: normal;
-			line-break: after-white-space;
 			line-height: 1.6em;
 			margin: 0px;
-			overflow: hidden;
 			padding: 0px;
-			white-space: pre-wrap;
-			width: 100%;
-			word-wrap: break-word;
-		}
-		#input {
-			background: transparent;
 			resize: none;
-			border-color: transparent;
+			width: 100%;
 		}
-		#output {
-			background: #fff;
-			color: transparent;
+		.ql-editor {
+			-webkit-appearance:none;
+			border: none;
+			outline: none;
 		}
 		@media (max-width: 767.98px) {
 			#menu, #wrapper {
@@ -108,10 +98,7 @@
 		</div>
 		<div id="wrapper">
 			<div class="column shadow bg-white rounded">
-				<div id="output"></div>
-			</div>
-			<div class="column">
-				<textarea id="input"></textarea>
+				<div id="editor"></div>
 			</div>
 		</div>
 	</div>

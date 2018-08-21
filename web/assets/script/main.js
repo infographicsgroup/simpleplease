@@ -5,8 +5,11 @@ $(function () {
 	$('button[name=language]').click(function () {
 		init($(this).val());
 	})
-	$('#input').on('change blur keyup', analyse);
-	$(window).resize(resize);
+	var quill = new Quill('#editor', {});
+	quill.on('text-change', function (d1, d0, source) {
+		if (source === 'api') return;
+		analyse(d1);
+	})
 
 	switch ((navigator.language || 'en').toLowerCase().slice(0,2)) {
 		case 'de': init('german'); break;
@@ -51,26 +54,43 @@ $(function () {
 		}
 
 		function finish() {
-			$('#input').text(dict.demotext);
-			analyse();
+			quill.setText(dict.demotext, 'user');
 		}
 	}
 
-	function analyse() {
+	function analyse(d) {
 		if (!dict) return;
 		
-		text = $('#input').val();
+		var text = quill.getText();
+		var startIndex = 0, endIndex = text.length;
 
-		var cleanText = text.replace(/^\s+|\s+$/g, '');
-
-		if (text !== cleanText) {
-			text = cleanText;
-			$('#input').val(text);
+		if (d && d.ops) {
+			var i0 = 0, i1 = 0;
+			d.ops.forEach(function (op) {
+				if (op.delete) return;
+				if (op.insert) return i1 += op.insert.length;
+				if (op.retain) {
+					if (i0 === 0) i0 = op.retain;
+					i1 += op.retain
+					return;
+				}
+			})
+			startIndex = text.lastIndexOf(' ', i0-1);
+			if (startIndex < 0) startIndex = 0;
+			endIndex = text.indexOf(' ', i1+1);
+			if (endIndex < 0) endIndex = text.length;
 		}
+		var textLength = endIndex-startIndex;
 
-		var html = text.replace(/[a-zäöüß]+/gi, function (chunk) {
-			
-			if (chunk.length <= 1) return chunk;
+		quill.removeFormat(startIndex, textLength, 'api');
+
+		text.replace(/[a-zäöüß]+/gi, function (chunk, offset) {
+			if (offset < startIndex) return;
+			if (offset > endIndex) return;
+
+			var length = chunk.length;
+
+			if (length <= 1) return;
 
 			var word = chunk.toLowerCase();
 			word = dict.stemmer(word);
@@ -80,21 +100,12 @@ $(function () {
 			value = Math.log(value);
 			value = 1-(value-dict.maxValue)/(dict.optValue-dict.maxValue);
 
-			if (value <= 0) return chunk;
+			if (value <= 0) return;
 
 			color = getColor(value);
 
-			return '<span style="background:#'+color+'">'+chunk+'</span>';
-
+			quill.formatText(offset, length, 'background', '#'+color, 'api');
 		});
-		$('#output').html(html);
-		resize();
-	}
-
-	function resize () {
-		var height = $('#output').outerHeight();
-		$('#input').css('height', height);
-		$('#wrapper').css('height', height+40);
 	}
 })
 
@@ -130,12 +141,12 @@ var demotext = {
 		'Regentropfen binden Staub und Aerosole, die in die Atmosphäre aufgestiegen sind. Diese Bestandteile bestimmen den pH-Wert des Regens.',
 		'Die Regenformen werden nach Entstehung, Dauer, Intensität, Wirkung und geografischem Vorkommen unterschieden. Fester Niederschlag, z. B. Hagel, Graupel oder Schnee, besteht aus gefrorenem Wasser und Kondensationskeimen und tritt auch gemischt mit Regen auf.',
 		'Die Kondensation des Wasserdampfes in der Atmosphäre tritt durch Abkühlung und durch Aerodynamik ein. Zusätzlich bestimmen der Staubgehalt und die Aerosole den Taupunkt abweichend vom Phasendiagramm der theoretischen Thermodynamik.',
-	].join('\n\n'),
+	].join('\n'),
 	english:[
 		'Rain is liquid water in the form of droplets that have condensed from atmospheric water vapor and then becomes heavy enough to fall under gravity.',
 		'Rain is a major component of the water cycle and is responsible for depositing most of the fresh water on the Earth. It provides suitable conditions for many types of ecosystems, as well as water for hydroelectric power plants and crop irrigation.',
 		'The major cause of rain production is moisture moving along three-dimensional zones of temperature and moisture contrasts known as weather fronts. If enough moisture and upward motion is present, precipitation falls from convective clouds (those with strong upward vertical motion) such as cumulonimbus (thunder clouds) which can organize into narrow rainbands.',
 		'In mountainous areas, heavy precipitation is possible where upslope flow is maximized within windward sides of the terrain at elevation which forces moist air to condense and fall out as rainfall along the sides of mountains. On the leeward side of mountains, desert climates can exist due to the dry air caused by downslope flow which causes heating and drying of the air mass.',
 		'The movement of the monsoon trough, or intertropical convergence zone, brings rainy seasons to savannah climes.',
-	].join('\n\n'),
+	].join('\n'),
 }
