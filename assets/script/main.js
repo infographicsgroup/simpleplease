@@ -62,7 +62,7 @@ $(function () {
 		if (!dict) return;
 		
 		var text = quill.getText();
-		var startIndex = 0, endIndex = text.length;
+		var startIndex = 0, endIndex = text.length-1;
 
 		if (d && d.ops) {
 			var i0 = 0, i1 = 0;
@@ -78,8 +78,9 @@ $(function () {
 			startIndex = text.lastIndexOf(' ', i0-1);
 			if (startIndex < 0) startIndex = 0;
 			endIndex = text.indexOf(' ', i1+1);
-			if (endIndex < 0) endIndex = text.length;
+			if (endIndex < 0) endIndex = text.length-1;
 		}
+		
 		var textLength = endIndex-startIndex;
 
 		quill.removeFormat(startIndex, textLength, 'api');
