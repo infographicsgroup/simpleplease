@@ -5,7 +5,7 @@ $(function () {
 	$('button[name=language]').click(function () {
 		init($(this).val());
 	})
-	var quill = new Quill('#editor', {});
+	var quill = new Quill('#editor', {formats:['background']});
 	quill.on('text-change', function (d1, d0, source) {
 		if (source === 'api') return;
 		analyse(d1);
