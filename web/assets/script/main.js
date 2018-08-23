@@ -2,36 +2,46 @@
 $(function () {
 	var library = {}, dict;
 
-	$('button[name=language]').click(function () {
-		init($(this).val());
-	})
+	// initialize editor
 	var quill = new Quill('#editor', {formats:['background']});
 	quill.on('text-change', function (d1, d0, source) {
 		if (source === 'api') return;
 		analyse(d1);
 	})
 
+	// buttons for switching languages
+	$('button[name=language]').click(function () {
+		initLanguage($(this).val());
+	})
+
+	// initialize language based on browser config
 	switch ((navigator.language || 'en').toLowerCase().slice(0,2)) {
-		case 'de': init('german'); break;
-		default: init('english');
+		case 'de': initLanguage('german'); break;
+		default: initLanguage('english');
 	}
 
-	function init(lang) {
+	function initLanguage(lang) {
+		// toggle activity of the menu buttons
 		$('#menu button').each(function (index, button) {
 			button = $(button);
 			button.toggleClass('active', button.val() === lang)
 		})
+
+		// toggle visibility of language dependent elements
 		$('.language').each(function (index, node) {
 			node = $(node);
 			node.toggle(node.hasClass(lang));
 		})
 
+		// if library is not initialized yet ...
 		if (!library[lang]) {
 			dict = (library[lang] = {});
 
+			// get stemmer and example texts
 			dict.stemmer = stemmer[lang];
-			dict.demotext = demotext[lang];
+			dict.exampleText = exampleText[lang];
 
+			// load wordlist
 			$.get('assets/data/'+lang+'.txt', function (data) {
 				var lookup = {};
 				data = data.split('\n');
@@ -54,16 +64,19 @@ $(function () {
 		}
 
 		function finish() {
-			quill.setText(dict.demotext, 'user');
+			quill.setText(dict.exampleText, 'user');
 		}
 	}
 
+	// analyse the current text in the editor and highlight words
 	function analyse(d) {
 		if (!dict) return;
 		
 		var text = quill.getText();
 		var startIndex = 0, endIndex = text.length-1;
 
+		// as an optimization: find the first and last character, that was changed
+		// so we only have to check that part of the text
 		if (d && d.ops) {
 			var i0 = 0, i1 = 0;
 			d.ops.forEach(function (op) {
@@ -83,6 +96,8 @@ $(function () {
 		
 		var textLength = endIndex-startIndex;
 
+
+		// remove all formats of that text block
 		quill.removeFormat(startIndex, textLength, 'api');
 
 		text.replace(/[a-zäöüß]+/gi, function (chunk, offset) {
@@ -93,6 +108,7 @@ $(function () {
 
 			if (length <= 1) return;
 
+			// hurray, we found a word. so lets clean it up and check it.
 			var word = chunk.toLowerCase();
 			word = dict.stemmer(word);
 
@@ -101,7 +117,7 @@ $(function () {
 			value = Math.log(value);
 			value = 1-(value-dict.maxValue)/(dict.optValue-dict.maxValue);
 
-			if (value <= 0) return;
+			if (value <= 0) return; // known word, so don't highlight it
 
 			color = getColor(value);
 
@@ -135,7 +151,7 @@ function getColor(value) {
 	].join('');
 }
 
-var demotext = {
+var exampleText = {
 	german:[
 		'Regen ist die am häufigsten auftretende Form flüssigen Niederschlags aus Wolken.',
 		'Er besteht aus Wasser, das nach Kondensation von Wasserdampf infolge der Schwerkraft auf die Erde fällt.',

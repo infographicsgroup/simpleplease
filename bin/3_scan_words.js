@@ -3,6 +3,7 @@
 const fs = require('fs');
 const Stemmer = require('../web/assets/script/stemmer.js');
 
+// combine multiple wordlists, but use weights. E.g. one wordlist can have 100-times more influence.
 [
 	{name: 'german', files:[
 		['german_basis.txt', 1],
@@ -14,6 +15,8 @@ const Stemmer = require('../web/assets/script/stemmer.js');
 		['english_fairytales.txt', 100],
 	]},
 ].forEach(task => {
+
+	// use stemmer specifically for this language
 	var stemmer = Stemmer[task.name];
 	var wordLookup = new Map();
 
@@ -42,10 +45,11 @@ const Stemmer = require('../web/assets/script/stemmer.js');
 
 	wordLookup.sort((a,b) => (b[1]-a[1]) || a[0].localeCompare(b[0]));
 
-	wordLookup = wordLookup.slice(0,80000);
+	// use only the 80.000 most word (stems)
+	wordLookup = wordLookup.slice(0, 80000);
 
 	wordLookup = wordLookup.map(e => e[0]).join('\n')
 
+	// save data
 	fs.writeFileSync('../web/assets/data/'+task.name+'.txt', wordLookup, 'utf8')
-
 })
