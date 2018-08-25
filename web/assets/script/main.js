@@ -1,24 +1,26 @@
 
-$(function () {
-	var library = {}, dict;
+function textAnalysis(config) {
+	var library = {}, dict, quill;
 
-	// initialize editor
-	var quill = new Quill('#editor', {formats:['background']});
-	quill.on('text-change', function (d1, d0, source) {
-		if (source === 'api') return;
-		analyse(d1);
-	})
+	setTimeout(function () {
+		// initialize editor
+		quill = new Quill(config.editor, {formats:['background']});
+		quill.on('text-change', function (d1, d0, source) {
+			if (source === 'api') return;
+			analyse(d1);
+		})
 
-	// buttons for switching languages
-	$('button[name=language]').click(function () {
-		initLanguage($(this).val());
-	})
+		// buttons for switching languages
+		$('button[name=language]').click(function () {
+			initLanguage($(this).val());
+		})
 
-	// initialize language based on browser config
-	switch ((navigator.language || 'en').toLowerCase().slice(0,2)) {
-		case 'de': initLanguage('german'); break;
-		default: initLanguage('english');
-	}
+		// initialize language based on browser config
+		switch ((navigator.language || 'en').toLowerCase().slice(0,2)) {
+			case 'de': initLanguage('german'); break;
+			default: initLanguage('english');
+		}
+	}, 0)
 
 	function initLanguage(lang) {
 		// toggle activity of the menu buttons
@@ -124,46 +126,46 @@ $(function () {
 			quill.formatText(offset, length, 'background', '#'+color, 'api');
 		});
 	}
-})
 
-var gradient = 'ffffff,fff9e2,fff2c5,ffecab,ffe595,ffdd7f,ffd56f,ffcc5c,ffc44d,ffbc3e,ffb433,ffaa26,ffa01b,ff9710,ff8c06,ff8301,ff7700'.split(',').map(function (hex) {
-	return [
-		parseInt(hex.slice(0,2),16),
-		parseInt(hex.slice(2,4),16),
-		parseInt(hex.slice(4,6),16)
-	]
-})
-var slotCount = gradient.length-1;
-function getColor(value) {
-	if (value < 0) value = 0;
-	if (value > 1) value = 1;
+	var gradient = 'ffffff,ffeee4,ffdbc9,ffc8ac,ffb591,ffa173,ff8b56,ff7234,ff5500'.split(',').map(function (hex) {
+		return [
+			parseInt(hex.slice(0,2),16),
+			parseInt(hex.slice(2,4),16),
+			parseInt(hex.slice(4,6),16)
+		]
+	})
+	var slotCount = gradient.length-1;
+	function getColor(value) {
+		if (value < 0) value = 0;
+		if (value > 1) value = 1;
 
-	var slot = Math.min(Math.floor(value*slotCount), slotCount-1);
-	var a = value*slotCount - slot;
+		var slot = Math.min(Math.floor(value*slotCount), slotCount-1);
+		var a = value*slotCount - slot;
 
-	var c0 = gradient[slot];
-	var c1 = gradient[slot+1];
+		var c0 = gradient[slot];
+		var c1 = gradient[slot+1];
 
-	return [
-		('00'+Math.round(c0[0] + (c1[0]-c0[0])*a).toString(16)).slice(-2),
-		('00'+Math.round(c0[1] + (c1[1]-c0[1])*a).toString(16)).slice(-2),
-		('00'+Math.round(c0[2] + (c1[2]-c0[2])*a).toString(16)).slice(-2),
-	].join('');
-}
+		return [
+			('00'+Math.round(c0[0] + (c1[0]-c0[0])*a).toString(16)).slice(-2),
+			('00'+Math.round(c0[1] + (c1[1]-c0[1])*a).toString(16)).slice(-2),
+			('00'+Math.round(c0[2] + (c1[2]-c0[2])*a).toString(16)).slice(-2),
+		].join('');
+	}
 
-var exampleText = {
-	german:[
-		'Regen ist die am häufigsten auftretende Form flüssigen Niederschlags aus Wolken.',
-		'Er besteht aus Wasser, das nach Kondensation von Wasserdampf infolge der Schwerkraft auf die Erde fällt.',
-		'Regentropfen binden Staub und Aerosole, die in die Atmosphäre aufgestiegen sind. Diese Bestandteile bestimmen den pH-Wert des Regens.',
-		'Die Regenformen werden nach Entstehung, Dauer, Intensität, Wirkung und geografischem Vorkommen unterschieden. Fester Niederschlag, z. B. Hagel, Graupel oder Schnee, besteht aus gefrorenem Wasser und Kondensationskeimen und tritt auch gemischt mit Regen auf.',
-		'Die Kondensation des Wasserdampfes in der Atmosphäre tritt durch Abkühlung und durch Aerodynamik ein. Zusätzlich bestimmen der Staubgehalt und die Aerosole den Taupunkt abweichend vom Phasendiagramm der theoretischen Thermodynamik.',
-	].join('\n'),
-	english:[
-		'Rain is liquid water in the form of droplets that have condensed from atmospheric water vapor and then becomes heavy enough to fall under gravity.',
-		'Rain is a major component of the water cycle and is responsible for depositing most of the fresh water on the Earth. It provides suitable conditions for many types of ecosystems, as well as water for hydroelectric power plants and crop irrigation.',
-		'The major cause of rain production is moisture moving along three-dimensional zones of temperature and moisture contrasts known as weather fronts. If enough moisture and upward motion is present, precipitation falls from convective clouds (those with strong upward vertical motion) such as cumulonimbus (thunder clouds) which can organize into narrow rainbands.',
-		'In mountainous areas, heavy precipitation is possible where upslope flow is maximized within windward sides of the terrain at elevation which forces moist air to condense and fall out as rainfall along the sides of mountains. On the leeward side of mountains, desert climates can exist due to the dry air caused by downslope flow which causes heating and drying of the air mass.',
-		'The movement of the monsoon trough, or intertropical convergence zone, brings rainy seasons to savannah climes.',
-	].join('\n'),
+	var exampleText = {
+		german:[
+			'Regen ist die am häufigsten auftretende Form flüssigen Niederschlags aus Wolken.',
+			'Er besteht aus Wasser, das nach Kondensation von Wasserdampf infolge der Schwerkraft auf die Erde fällt.',
+			'Regentropfen binden Staub und Aerosole, die in die Atmosphäre aufgestiegen sind. Diese Bestandteile bestimmen den pH-Wert des Regens.',
+			'Die Regenformen werden nach Entstehung, Dauer, Intensität, Wirkung und geografischem Vorkommen unterschieden. Fester Niederschlag, z. B. Hagel, Graupel oder Schnee, besteht aus gefrorenem Wasser und Kondensationskeimen und tritt auch gemischt mit Regen auf.',
+			'Die Kondensation des Wasserdampfes in der Atmosphäre tritt durch Abkühlung und durch Aerodynamik ein. Zusätzlich bestimmen der Staubgehalt und die Aerosole den Taupunkt abweichend vom Phasendiagramm der theoretischen Thermodynamik.',
+		].join('\n'),
+		english:[
+			'Rain is liquid water in the form of droplets that have condensed from atmospheric water vapor and then becomes heavy enough to fall under gravity.',
+			'Rain is a major component of the water cycle and is responsible for depositing most of the fresh water on the Earth. It provides suitable conditions for many types of ecosystems, as well as water for hydroelectric power plants and crop irrigation.',
+			'The major cause of rain production is moisture moving along three-dimensional zones of temperature and moisture contrasts known as weather fronts. If enough moisture and upward motion is present, precipitation falls from convective clouds (those with strong upward vertical motion) such as cumulonimbus (thunder clouds) which can organize into narrow rainbands.',
+			'In mountainous areas, heavy precipitation is possible where upslope flow is maximized within windward sides of the terrain at elevation which forces moist air to condense and fall out as rainfall along the sides of mountains. On the leeward side of mountains, desert climates can exist due to the dry air caused by downslope flow which causes heating and drying of the air mass.',
+			'The movement of the monsoon trough, or intertropical convergence zone, brings rainy seasons to savannah climes.',
+		].join('\n'),
+	}
 }
