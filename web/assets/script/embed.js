@@ -82,6 +82,6 @@ document.write([
 '<script type="text/javascript">',
 '	setTimeout(function () {',
 '		$(function () {textAnalysis({editor:"#my_editor")})',
-'	},0);'
+'	},0);',
 '</script>'
 ].join('\n'));
