@@ -80,10 +80,8 @@ document.write([
 '<script type="text/javascript" src="/simpleplease/assets/script/stemmer.js"></script>',
 '<script type="text/javascript" src="/simpleplease/assets/script/main.js"></script>',
 '<script type="text/javascript">',
-'	$(function () {',
-'		textAnalysis({',
-'			editor:"#my_editor",',
-'		});',
-'	})',
+'	setTimeout(function () {',
+'		$(function () {textAnalysis({editor:"#my_editor")})',
+'	},0);'
 '</script>'
 ].join('\n'));
