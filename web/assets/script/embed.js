@@ -81,7 +81,9 @@ document.write([
 '<script type="text/javascript" src="/simpleplease/assets/script/main.js"></script>',
 '<script type="text/javascript">',
 '	setTimeout(function () {',
-'		$(function () {textAnalysis({editor:"#my_editor")})',
+'		$(function () {',
+'			textAnalysis({editor:"#my_editor"})',
+'		})',
 '	},0);',
 '</script>'
 ].join('\n'));
