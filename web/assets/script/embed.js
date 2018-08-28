@@ -83,10 +83,8 @@ document.write([
 '<script type="text/javascript" src="/simpleplease/assets/script/stemmer.js"></script>',
 '<script type="text/javascript" src="/simpleplease/assets/script/main.js"></script>',
 '<script type="text/javascript">',
-'	setTimeout(function () {',
-'		$(function () {',
-'			textAnalysis({editor:"#my_editor", url:"/simpleplease/"})',
-'		})',
-'	},0);',
+'	window.addEventListener("load", function() {',
+'		textAnalysis({editor:"#my_editor", url:"/simpleplease/"})',
+'	});',
 '</script>'
 ].join('\n'));
