@@ -2,7 +2,7 @@
 function textAnalysis(config) {
 	if (!config) config = {};
 	if (!config.url) config.url = '';
-	
+
 	var library = {}, dict, quill;
 
 	setTimeout(function () {
@@ -129,8 +129,8 @@ function textAnalysis(config) {
 			quill.formatText(offset, length, 'background', '#'+color, 'api');
 		});
 	}
-
-	var gradient = 'ffffff,ffeee4,ffdbc9,ffc8ac,ffb591,ffa173,ff8b56,ff7234,ff5500'.split(',').map(function (hex) {
+	var gradient = 'ffffff,fff9e2,fff2c5,ffecab,ffe595,ffdd7f,ffd56f,ffcc5c,ffc44d,ffbc3e,ffb433,ffaa26,ffa01b,ff9710,ff8c06,ff8301,ff7700'.split(',').map(function (hex) {
+	//var gradient = 'ffffff,ffeee4,ffdbc9,ffc8ac,ffb591,ffa173,ff8b56,ff7234,ff5500'.split(',').map(function (hex) {
 		return [
 			parseInt(hex.slice(0,2),16),
 			parseInt(hex.slice(2,4),16),

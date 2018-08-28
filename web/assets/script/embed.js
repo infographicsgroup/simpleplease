@@ -55,6 +55,7 @@ document.write([
 '		margin: 0px;',
 '		padding: 0px;',
 '		resize: none;',
+'		color:#000;',
 '	}',
 '	.ql-editor {',
 '		-webkit-appearance:none;',
