@@ -1,5 +1,8 @@
 
 function textAnalysis(config) {
+	if (!config) config = {};
+	if (!config.url) config.url = '';
+	
 	var library = {}, dict, quill;
 
 	setTimeout(function () {
@@ -44,7 +47,7 @@ function textAnalysis(config) {
 			dict.exampleText = exampleText[lang];
 
 			// load wordlist
-			$.get('assets/data/'+lang+'.txt', function (data) {
+			$.get(config.url+'assets/data/'+lang+'.txt', function (data) {
 				var lookup = {};
 				data = data.split('\n');
 				data.forEach(function (word, index) {

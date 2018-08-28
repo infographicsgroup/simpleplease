@@ -82,7 +82,7 @@ document.write([
 '<script type="text/javascript">',
 '	setTimeout(function () {',
 '		$(function () {',
-'			textAnalysis({editor:"#my_editor"})',
+'			textAnalysis({editor:"#my_editor", url:"/simpleplease/"})',
 '		})',
 '	},0);',
 '</script>'
