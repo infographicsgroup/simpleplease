@@ -27,7 +27,7 @@ function textAnalysis(config) {
 
 	function initLanguage(lang) {
 		// toggle activity of the menu buttons
-		$('#menu button').each(function (index, button) {
+		$('button[name=language]').each(function (index, button) {
 			button = $(button);
 			button.toggleClass('active', button.val() === lang)
 		})
