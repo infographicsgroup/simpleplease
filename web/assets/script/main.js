@@ -23,7 +23,12 @@ function textAnalysis(config) {
 			case 'de': initLanguage('german'); break;
 			default: initLanguage('english');
 		}
-	}, 0)
+
+		$('.my_expl').each(function (i,node) {
+			node = $(node);
+			node.css('background', '#'+getColor(parseFloat(node.attr('value'))));
+		})
+	}, 1)
 
 	function initLanguage(lang) {
 		// toggle activity of the menu buttons
