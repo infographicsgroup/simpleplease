@@ -45,6 +45,7 @@ document.write([
 '		box-shadow: 0px 5px 15px rgba(0,0,0,0.15);',
 '		padding: 35px;',
 '		margin-top: 30px;',
+'		width: 100%;',
 '	}',
 '	#my_editor {',
 '		-webkit-appearance:none;',
