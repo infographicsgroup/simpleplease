@@ -34,7 +34,7 @@ document.write([
 '		display: hidden;',
 '		text-align:center;',
 '	}',
-'  .my_small { font-size: 0.75em; color: rgba(0,0,0,0.5) }',
+'  .my_small { font-size: 0.75em; color: rgba(0,0,0,0.75) }',
 '  .my_expl { display:inline-block; vertical-align:-0.25em; width:1em; height:1em; border: 1px solid rgba(0,0,0,0.1); margin: 0px; }',
 '	h2.language {',
 '		text-align: center;',
